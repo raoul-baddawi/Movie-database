@@ -52,12 +52,6 @@ app.get('/movies/create/:id', (req, res) => {
       res.json({ status: 200, data: movies});
     });
     
-
-    app.get('/movies/update/:id', (req, res) => {
-      const movieId = req.params.id;
-      res.send(`Movie ${movieId} updated!`);
-    });
-    
     app.get('/movies/read/by-date', (req, res) => {
         const moviesSortedByDate = movies.sort((a, b) => b.year - a.year);
         res.status(200).json({ status: 200, data: moviesSortedByDate });
@@ -130,6 +124,36 @@ app.get('/movies/create/:id', (req, res) => {
       
         // Remove the movie from the array
         movies.splice(index, 1);
+      
+        // Send the updated list of movies as the response
+        res.send(movies);
+      });
+
+      app.get('/movies/update/:id', (req, res) => {
+        // Extract the movie id from the request parameters
+        const id = req.params.id;
+      
+        // Find the movie with the specified id
+        const movie = movies.find(movie => movie.title === id);
+      
+        // If the movie was not found, send an error message
+        if (!movie) {
+          return res.status(404).send({
+            error: true,
+            message: `The movie ${id} does not exist.`
+          });
+        }
+      
+        // Extract the new title and rating from the query parameters
+        const { title, rating } = req.query;
+      
+        // Update the movie with the new values
+        if (title) {
+          movie.title = title;
+        }
+        if (rating) {
+          movie.rating = rating;
+        }
       
         // Send the updated list of movies as the response
         res.send(movies);
