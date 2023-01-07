@@ -40,7 +40,7 @@ app.get('/hello/:id', (req, res) => {
     { title: 'Avatar', year: 2009, rating: 7.8 },
     { title: 'Brazil', year: 1985, rating: 8 },
     { title: 'الإرهاب والكباب‎', year: 1992, rating: 6.2 }
-]
+] 
 
 app.get('/movies/create/:id', (req, res) => {
     const movieId = req.params.id;
@@ -58,12 +58,6 @@ app.get('/movies/create/:id', (req, res) => {
       res.send(`Movie ${movieId} updated!`);
     });
     
-
-    app.get('/movies/delete/:id', (req, res) => {
-      const movieId = req.params.id;
-      res.send(`Movie ${movieId} deleted!`);
-    });
-
     app.get('/movies/read/by-date', (req, res) => {
         const moviesSortedByDate = movies.sort((a, b) => b.year - a.year);
         res.status(200).json({ status: 200, data: moviesSortedByDate });
@@ -116,5 +110,27 @@ app.get('/movies/create/:id', (req, res) => {
         }
         const newMovie = { title, year, rating };
         movies.push(newMovie);
+        res.send(movies);
+      }); 
+
+      app.get('/movies/delete/:id', (req, res) => {
+        // Extract the movie id from the request parameters
+        const id = req.params.id;
+      
+        // Find the index of the movie with the specified id
+        const index = movies.findIndex(movie => movie.title.toLowerCase()== id.toLowerCase());
+      
+        // If the movie was not found, send an error message
+        if (index === -1) {
+          return res.status(404).send({
+            error: true,
+            message: `The movie ${id} does not exist.`
+          }); 
+        }
+      
+        // Remove the movie from the array
+        movies.splice(index, 1);
+      
+        // Send the updated list of movies as the response
         res.send(movies);
       });
