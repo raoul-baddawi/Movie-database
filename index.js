@@ -86,3 +86,13 @@ app.get('/movies/create/:id', (req, res) => {
         });
         res.status(200).json({ status: 200, data: moviesSortedByTitle });
       });
+
+      app.get('/movies/read/id/:id', (req, res) => {
+        const id = req.params.id;
+        const movie = movies.find((mov) => mov.title === id);
+        if (movie) {
+          res.json({ status: 200, data: movie });
+        } else {
+          res.status(404).json({ status: 404, error: true, message: `the movie ${id} does not exist` });
+        }
+      });
