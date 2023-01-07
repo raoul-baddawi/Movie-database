@@ -1,0 +1,29 @@
+{
+  "name": "movie-database",
+  "version": "1.0.0",
+  "description": "movie-db challenge",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/raoul-baddawi/Movie-database.git"
+  },
+  "keywords": [
+    "123"
+  ],
+  "author": "Raoul Baddawi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/raoul-baddawi/Movie-database/issues"
+  },
+  "homepage": "https://github.com/raoul-baddawi/Movie-database#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon index.js"
+  }
+}
