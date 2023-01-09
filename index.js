@@ -42,7 +42,7 @@ app.get('/hello/:id', (req, res) => {
     { title: 'الإرهاب والكباب‎', year: 1992, rating: 6.2 }
 ] 
 
-app.get('/movies/create/:id', (req, res) => {
+app.post('/movies/create/:id', (req, res) => {
     const movieId = req.params.id;
       res.send(`Movie ${movieId} created!`);
     });
@@ -98,7 +98,7 @@ app.get('/movies/create/:id', (req, res) => {
             error: true,
             message: 'you cannot create a movie without providing a title and a year.'
           });
-        }
+        } 
         if (!rating) {
           rating = 4;
         }
@@ -128,7 +128,7 @@ app.get('/movies/create/:id', (req, res) => {
         // Send the updated list of movies as the response
         res.send(movies);
       });
-
+ 
       app.get('/movies/update/:id', (req, res) => {
         // Extract the movie id from the request parameters
         const id = req.params.id;
